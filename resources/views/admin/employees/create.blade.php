@@ -13,7 +13,7 @@
     <form action="{{ route('admin.employees.store') }}" method="post" enctype="multipart/form-data">
         @csrf
 
-        @include('admin.employees.form')
+        @include('admin.employees.form',['mode'=>'create'])
     </form>
 
 

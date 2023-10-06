@@ -11,7 +11,7 @@
     <form action="{{ route('admin.employees.update', $employee->id) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        @include('admin.employees.form')
+        @include('admin.employees.form',['mode'=>'edit'])
     </form>
 @stop
 

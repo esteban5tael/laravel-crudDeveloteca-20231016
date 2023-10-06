@@ -146,7 +146,10 @@ class EmployeeController extends Controller
                 if ($currentPhoto !== 'assets/img/default.jpg') {
                     // Eliminar la foto anterior
                     
-                    unlink('storage/'.$currentPhoto);
+                    try {
+                        unlink($currentPhoto);
+                    } catch (\Throwable $th) {
+                    }
                 }
             }
         }
@@ -172,7 +175,10 @@ class EmployeeController extends Controller
         if (File::exists($photoPath)) {
             // Elimina la foto
             
-            unlink($photoPath);
+            try {
+                unlink($photoPath);
+            } catch (\Throwable $th) {
+            }
         }
 
         // Luego, elimina al empleado
