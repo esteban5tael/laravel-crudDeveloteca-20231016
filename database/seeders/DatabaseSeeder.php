@@ -51,7 +51,7 @@ class DatabaseSeeder extends Seeder
                 'name' => "Nombre Empleado 0$i",
                 'lastname' => "Nombre Empleado 0$i",
                 'email' => "Empleado0$i@Empleado0$i.com",
-                'photo' => "storage/assets/img/employees/default0$i.png",
+                'photo' => "assets/img/employees/default0$i.png",
 
             ]);
         }

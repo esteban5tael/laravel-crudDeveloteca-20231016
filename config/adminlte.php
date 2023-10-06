@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'CRUD Laravel Empleados | Develoteca',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -48,7 +48,7 @@ return [
     */
 
     'google_fonts' => [
-        'allowed' => true,
+        'allowed' => false,
     ],
 
     /*
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => 'Empleados',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -107,7 +107,7 @@ return [
     */
 
     'preloader' => [
-        'enabled' => true,
+        'enabled' => false,
         'img' => [
             'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
             'alt' => 'AdminLTE Preloader Image',
@@ -252,8 +252,8 @@ return [
     |
     */
 
-    'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'use_route_url' => true,
+    'dashboard_url' => 'dashboard',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -290,7 +290,7 @@ return [
     */
 
     'menu' => [
-        // Navbar items:
+       /*  // Navbar items:
         [
             'type'         => 'navbar-search',
             'text'         => 'search',
@@ -317,13 +317,19 @@ return [
             'icon'        => 'far fa-fw fa-file',
             'label'       => 4,
             'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
+        ], */
+        ['header' => 'Empleados'],
         [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
+            'text' => 'Listar',
+            'route'  => 'admin.employees.index',
             'icon' => 'fas fa-fw fa-user',
         ],
+        [
+            'text' => 'Crear',
+            'route'  => 'admin.employees.create',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        /* 
         [
             'text' => 'change_password',
             'url'  => 'admin/settings',
@@ -382,7 +388,7 @@ return [
             'text'       => 'information',
             'icon_color' => 'cyan',
             'url'        => '#',
-        ],
+        ], */
     ],
 
     /*

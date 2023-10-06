@@ -4,7 +4,7 @@
     <ul >
         <li>
             <a href="{{ route('index') }}">Index</a>
-            <a href="{{ route('index') }}">{{ __('Employees') }}</a>
+            <a href="{{ route('admin.employees.index') }}">{{ __('Employees') }}</a>
         </li>
     </ul>
 </div>

@@ -20,11 +20,11 @@ return new class extends Migration
                 ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-                
+
             $table->string('name');
             $table->string('lastname');
-            $table->string('email');                
-            $table->string('photo');
+            $table->string('email');
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }
