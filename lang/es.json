@@ -57,5 +57,9 @@
     "Employees":"Empleados",
     "Last Name":"Apellido",
     "Photo":"Foto",
-    "Submit":"Guardar"
+    "Submit":"Guardar",
+    "Create":"Crear",
+    "name":"Nombre",
+    "lastname":"Apellido",
+    "email":"Correo"
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Employee;
 use Illuminate\Support\Facades\Route;
 
 // index
@@ -11,8 +12,13 @@ Route::get('/', function () {
 
 
 // empleados
+Route::get('/employee',function(){
+    $employees = Employee::orderBy('id', 'desc')->paginate(5); // Obtén todos los empleados ordenados por ID en orden descendente.
+    return view('employeesindex',compact('employees')); 
+})->name('employeesindex');
 
-Route::resource('/employees', EmployeeController::class)->names('admin.employees');
+
+Route::resource('/employees', EmployeeController::class)->names('admin.employees')->middleware('auth');
 
 
 

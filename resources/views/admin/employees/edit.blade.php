@@ -7,14 +7,19 @@
 @stop
 
 @section('content')
-    
+
+    <form action="{{ route('admin.employees.update', $employee->id) }}" method="post" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+        @include('admin.employees.form')
+    </form>
 @stop
 
 @section('css')
-	{{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
     <link rel="stylesheet" href="{{ asset('storage/assets/css/bootstrap.min.css') }}">
 @stop
 
 @section('js')
-	{{-- <script> console.log('Hi!'); </script> --}}
+    {{-- <script> console.log('Hi!'); </script> --}}
 @stop

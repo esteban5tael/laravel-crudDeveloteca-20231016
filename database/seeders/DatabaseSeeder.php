@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         // administrador
         User::create([
-            'name' => 'administrador',
+            'name' => 'Administrador',
             'email' => 'administrador@administrador.com',
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('12345678'),
@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         ]);
         // usuario
         User::create([
-            'name' => 'usuario',
+            'name' => 'Usuario',
             'email' => 'usuario@usuario.com',
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('12345678'),

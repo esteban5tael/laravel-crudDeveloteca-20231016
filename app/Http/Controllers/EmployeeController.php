@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class EmployeeController extends Controller
 {
@@ -54,7 +55,7 @@ class EmployeeController extends Controller
 
         // Obtén el archivo de la solicitud
         if ($request->hasFile('photo')) {
-            $photo = $request->file('photo')->store('assets/img/employees',['']);
+            $photo = $request->file('photo')->store('assets/img/employees', ['']);
         } else {
             $photo = null; // Si no se proporcionó una foto, asigna null.
         }
@@ -98,7 +99,16 @@ class EmployeeController extends Controller
     public function edit(Employee $employee)
     {
         //
-        return view('admin.employees.edit', compact('employee'));
+        $user_id = "";
+
+        if (Auth::check()) {
+            $user_id = Auth::id();
+        } else {
+            return redirect()->route('login');
+        }
+
+
+        return view('admin.employees.edit', compact('employee', 'user_id'));
     }
 
     /**
@@ -106,18 +116,68 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        //
-        $employee->update($request->all());
-        return redirect()->route('employees.index');
+        // Validación de datos
+        $request->validate([
+            'name' => 'required|string',
+            'lastname' => 'required|string',
+            'email' => 'required|email',
+            'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Asegúrate de definir las reglas de validación para la foto.
+        ]);
+
+        // Actualizar los campos del empleado con los nuevos valores del formulario
+        $employee->name = $request->input('name');
+        $employee->lastname = $request->input('lastname');
+        $employee->email = $request->input('email');
+
+        // Obtener la foto actual del empleado
+        $currentPhoto = $employee->photo;
+
+        // Obtener el archivo de la solicitud y actualizar la foto si se proporciona uno nuevo
+        if ($request->hasFile('photo')) {
+            // Validar y almacenar el nuevo archivo
+            $newPhoto = $request->file('photo')->store('assets/img/employees', ['']);
+
+            // Actualizar la ruta de la foto en el modelo
+            $employee->photo = $newPhoto;
+
+            // Si hay una foto anterior, eliminarla
+            if ($currentPhoto) {
+                // Asegurarse de que la foto anterior no sea la imagen por defecto
+                if ($currentPhoto !== 'assets/img/default.jpg') {
+                    // Eliminar la foto anterior
+                    
+                    unlink('storage/'.$currentPhoto);
+                }
+            }
+        }
+
+        // Guardar los cambios en el empleado
+        $employee->save();
+
+        // Redirigir a la página de detalles del empleado o a donde desees
+        return redirect()->route('admin.employees.index')->with('message', 'Empleado Actualizado Exitosamente');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Employee $employee)
     {
-        //
+        // Obtén la ruta de la foto antes de eliminar el empleado
+        $photoPath = public_path($employee->photo);
+
+
+        // Verifica si la foto existe antes de intentar eliminarla
+        if (File::exists($photoPath)) {
+            // Elimina la foto
+            
+            unlink($photoPath);
+        }
+
+        // Luego, elimina al empleado
         $employee->delete();
-        return redirect()->route('employees.index');
+
+        return redirect()->route('admin.employees.index')->with('message', 'Empleado Eliminado Exitosamente');
     }
 }
